@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="movieLabel">
+        <item name="android:paddingLeft">10px</item>
+        <item name="android:paddingTop">10px</item>
+        <item name="android:paddingBottom">10px</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_width">100px</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="movieInfo">
+        <item name="android:paddingTop">10px</item>
+        <item name="android:paddingBottom">10px</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+</resources>

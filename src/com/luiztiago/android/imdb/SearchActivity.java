@@ -1,118 +1,170 @@
 package com.luiztiago.android.imdb;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 public class SearchActivity extends DefaultActivity {
+
+	final Activity self = this;
+	public static Movies movie;
+	
+	EditText fieldSearch;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.search);
-
-		final Activity self = this;
-
+		
+		fieldSearch = (EditText) findViewById(R.id.fieldSearch);
+		fieldSearch.setOnKeyListener(new OnKeyListener() {
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				// If the event is a key-down event on the "enter" button
+				if ((event.getAction() == KeyEvent.ACTION_DOWN)
+						&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
+					// Perform action on key press
+					//Toast.makeText(self, fieldSearch.getText(),
+					//		Toast.LENGTH_SHORT).show();
+					
+					searchMovie();
+					
+					return true;
+				}
+				return false;
+			}
+		});
+		
 		Button btnSearch = (Button) findViewById(R.id.buttonSearch);
 		btnSearch.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				EditText fieldSearch = (EditText) findViewById(R.id.fieldSearch);
-				Toast.makeText(self, "Searching movies with: " + fieldSearch.getText(),
-						Toast.LENGTH_LONG).show();
-				
-				//String response = null;
-				//movies movie = new Gson().fromJson(response, movies.class);
-
-				String movie = getJson();
-				
-				Toast.makeText(self, (String)movie, Toast.LENGTH_LONG).show();
-				
-				//EditText textMovies = (EditText)findViewById(R.id.textMovies);
-				//textMovies.setText((String)movie.toString());
-				
-				//Log.d("Luiz", movie.toString());
-				
+				searchMovie();
 			}
 		});
-		
+
 	}
 	
-	public static String getJson(){
-		
-		//List<movies> movies = null;
-		movies movie = null;
-		
-		WebService webService = new WebService(
-				"http://www.deanclatworthy.com/imdb/");
-		//WebService webService = new WebService("http://www.sumasoftware.com/alerts/GetAlerts.php");
+	public void searchMovie(){
+		//fieldSearch = (EditText) findViewById(R.id.fieldSearch);
+		if (Utils.isNetworkAvailable(self)) {
+			String search = fieldSearch.getText().toString();
+			Toast.makeText(self, "Searching movies with: " + search,
+					Toast.LENGTH_LONG).show();
 
-		Map<String, String> params = new HashMap<String, String>();
-		//params.put("param", "");
-		
-		params.put("q", "Thor");
-		params.put("year", "");
-		params.put("type", "json");
-
-		// Get JSON response from server the "" are where the method name would
-		// normally go if needed example
-		// webService.webGet("getMoreAllerts", params);
-		String response = webService.webGet("", params);
-
-		try {
-			// Parse Response into our object
-			//Type collectionType = new TypeToken<List<movies>>() {}.getType();
-			//movies = new Gson().fromJson(response, collectionType);
-			
-			movie = new Gson().fromJson(response, movies.class);
-
-		} catch (Exception e) {
-			Log.d("Error: ", e.getMessage());
+			runJSONParser(search);
+		} else {
+			Toast.makeText(self, "You're without internet connection",
+					Toast.LENGTH_LONG).show();
 		}
-		
-		return movie.toString();
 	}
-	
-	public class movies {
-		 
-//	    public String title;
-//	    public String imdburl;
-//	    public String country;
-//	    public String languages;
-//	    public String genres;
-//	    public String rating;
-//	    public String votes;
-//	    public String year;
-//	 
-//	    @Override
-//	    public String toString()
-//	    {
-//	        return "Title: " + title + " | IMDB: " + imdburl + " | Rating: " + rating;
-//	    }
-		
-		public int alertid;
-	    public String alerttext;
-	    public String alertdate;
-	 
-	    @Override
-	    public String toString()
-	    {
-	        return "Alert ID: "+alertid+ " Alert Text: "+alerttext+ " Alert Date: "+alertdate;
-	 
-	    }
-		
+
+	public InputStream getJSONData(String url) {
+		DefaultHttpClient httpClient = new DefaultHttpClient();
+		URI uri;
+		InputStream data = null;
+		try {
+			uri = new URI(url);
+			HttpGet method = new HttpGet(uri);
+			HttpResponse response = httpClient.execute(method);
+			data = response.getEntity().getContent();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return data;
+	}
+
+	/*
+	 * private String getJSONdata(URL url) { // TODO Auto-generated method stub
+	 * String json = new String(""); try { HttpURLConnection conn =
+	 * (HttpURLConnection)url.openConnection();
+	 * 
+	 * conn.setDoInput(true); conn.setDoOutput(true);
+	 * 
+	 * InputStream is = conn.getInputStream();
+	 * 
+	 * byte[] buffer = new byte[1024]; ByteArrayOutputStream baos = new
+	 * ByteArrayOutputStream(); int readed; while ( ( readed = is.read(buffer))
+	 * > 0 ) { baos.write(buffer, 0, readed); }
+	 * 
+	 * json = new String(baos.toByteArray());
+	 * 
+	 * // for (Movie mov : objs.getMovies()) { // Log.i("MOVIES", mov.getTitle()
+	 * + " - " + mov.getRating()); // }
+	 * 
+	 * } catch (Exception ex) { ex.printStackTrace(); }
+	 * 
+	 * return json; }
+	 */
+
+	public void runJSONParser(String search) {
+		try {
+			// URL url = new
+			// URL("http://www.deanclatworthy.com/imdb/?year=&submit=Submit&type=json&q="+search);
+			// HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			//
+			// conn.setDoInput(true);
+			// conn.setDoOutput(true);
+			//
+			// InputStream is = conn.getInputStream();
+			//
+			// byte[] buffer = new byte[1024];
+			// ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			// int readed;
+			// while ( ( readed = is.read(buffer)) > 0 ) {
+			// baos.write(buffer, 0, readed);
+			// }
+			//
+			// String json = new String(baos.toByteArray());
+
+			URL url = new URL(
+					"http://www.deanclatworthy.com/imdb/?year=&submit=Submit&type=json&q="
+							+ search);
+			String json = MoviesJSON.getJSONdata(url);
+			Log.i("Luiz", json.toString());
+
+			JSONObject obj = new JSONObject(json);
+			String title = obj.getString("title");
+			String rating = obj.getString("rating");
+			String imdburl = obj.getString("imdburl");
+			String country = obj.getString("country");
+			String languages = obj.getString("languages");
+			String genres = obj.getString("genres");
+			String votes = obj.getString("votes");
+			String year = obj.getString("year");
+
+			movie = new Movies(title, rating, imdburl, country, languages,
+					genres, votes, year);
+			Log.i("Luiz", title);
+			Log.i("Luiz", "Rating: " + movie.getRating());
+
+			Intent it = new Intent(self, MovieActivity.class);
+			startActivity(it);
+
+		} catch (Exception ex) {
+			Toast.makeText(self, "WebService without response.",
+					Toast.LENGTH_LONG).show();
+			ex.printStackTrace();
+		}
 	}
 
 }
