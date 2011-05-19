@@ -24,8 +24,8 @@ import android.widget.Toast;
 public class SearchActivity extends DefaultActivity {
 
 	final Activity self = this;
-	public static Movies movie;
 	
+	Movies movie;
 	EditText fieldSearch;
 
 	@Override
@@ -158,6 +158,7 @@ public class SearchActivity extends DefaultActivity {
 			Log.i("Luiz", "Rating: " + movie.getRating());
 
 			Intent it = new Intent(self, MovieActivity.class);
+			it.putExtra("movie", movie);
 			startActivity(it);
 
 		} catch (Exception ex) {

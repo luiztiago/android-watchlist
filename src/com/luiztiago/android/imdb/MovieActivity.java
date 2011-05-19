@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.graphics.Bitmap;
@@ -16,13 +15,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MovieActivity extends SearchActivity implements OnClickListener {
 	
 	private ImageView imageMovie;
+	public Movies movie;
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		
@@ -32,20 +31,39 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
 		String imageLocation = null;
 		Bitmap bm;
 		URL url;
-		Movies movie = SearchActivity.movie;
-		Log.i("Luiz", movie.getTitle());
+		//Movies movie = SearchActivity.movie;
 		
-		TextView fieldTitle = (TextView)findViewById(R.id.fieldTitle);
-		fieldTitle.setText(movie.getTitle());
+		movie = null;
+		if (getIntent().getSerializableExtra("movie") != null){
+			movie = (Movies)getIntent().getSerializableExtra("movie");
+			
+			TextView fieldTitle = (TextView)findViewById(R.id.fieldTitle);
+			fieldTitle.setText(movie.getTitle());
+			
+			TextView fieldRating = (TextView)findViewById(R.id.fieldRating);
+			fieldRating.setText(movie.getRating());
+			
+			TextView fieldGenres = (TextView)findViewById(R.id.fieldGenres);
+			fieldGenres.setText(movie.getGenres());
+			
+			TextView fieldImdb = (TextView)findViewById(R.id.fieldImdb);
+			fieldImdb.setText(movie.getImdburl());
+		}
 		
-		TextView fieldRating = (TextView)findViewById(R.id.fieldRating);
-		fieldRating.setText(movie.getRating());
 		
-		TextView fieldGenres = (TextView)findViewById(R.id.fieldGenres);
-		fieldGenres.setText(movie.getGenres());
-		
-		TextView fieldImdb = (TextView)findViewById(R.id.fieldImdb);
-		fieldImdb.setText(movie.getImdburl());
+//		Log.i("Luiz", movie.getTitle());
+//		
+//		TextView fieldTitle = (TextView)findViewById(R.id.fieldTitle);
+//		fieldTitle.setText(movie.getTitle());
+//		
+//		TextView fieldRating = (TextView)findViewById(R.id.fieldRating);
+//		fieldRating.setText(movie.getRating());
+//		
+//		TextView fieldGenres = (TextView)findViewById(R.id.fieldGenres);
+//		fieldGenres.setText(movie.getGenres());
+//		
+//		TextView fieldImdb = (TextView)findViewById(R.id.fieldImdb);
+//		fieldImdb.setText(movie.getImdburl());
 		
 		//RatingBar ratingBar = (RatingBar)findViewById(R.id.ratingBar1);
 		//ratingBar.setRating(movie.getRating());
@@ -138,12 +156,19 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
     	
     	if (item.getItemId() == 1) {
-    		AlertDialog.Builder builder = new AlertDialog.Builder(this)
-    			.setTitle("Titulo")
-    			.setMessage("Mensagem")
-    			.setPositiveButton("OK", (android.content.DialogInterface.OnClickListener) this)
-    			.setNegativeButton("Cancelar", (android.content.DialogInterface.OnClickListener) this);
-    		builder.create().show();
+    		
+    		MoviesDB db = new MoviesDB(this);
+    		System.out.println(movie);
+			db.save(movie);
+			Toast.makeText(self, "Adicionado com sucesso",
+					Toast.LENGTH_SHORT).show();
+    		
+//    		AlertDialog.Builder builder = new AlertDialog.Builder(this)
+//    			.setTitle("Titulo")
+//    			.setMessage("Mensagem")
+//    			.setPositiveButton("OK", (android.content.DialogInterface.OnClickListener) this)
+//    			.setNegativeButton("Cancelar", (android.content.DialogInterface.OnClickListener) this);
+//    		builder.create().show();
     	}else if (item.getItemId() == 2){
     		// Trator FAKE
     	}

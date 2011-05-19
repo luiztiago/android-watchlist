@@ -23,11 +23,12 @@ public class DefaultActivity extends Activity {
 			}
 		});
         
-        findViewById(R.id.myMoviesButton).setOnClickListener(new OnClickListener() {
+        findViewById(R.id.moviesToWatchButton).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				
+				Intent it = new Intent(self, MoviesToWatchActivity.class);
+				startActivity(it);
 			}
 		});
         

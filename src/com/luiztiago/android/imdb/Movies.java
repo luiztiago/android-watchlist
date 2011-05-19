@@ -1,9 +1,12 @@
 package com.luiztiago.android.imdb;
 
+import java.io.Serializable;
+
 import android.util.Log;
 
-public class Movies {
+public class Movies implements Serializable {
 
+	private long id;
 	private String title;
 	private String rating;
 	private String imdburl;
@@ -11,25 +14,34 @@ public class Movies {
 	private String languages;
 	private String genres;
 	private String votes;
-	private String usascreens;
-	private String ukscreens;
 	private String year;
-	private String stv;
-	private String series;
-
-	public Movies(String t, String r, String imdb, String c, String l, String g, String v, String y) {
-		// TODO Auto-generated constructor stub
-		title = t;
-		rating = r;
-		imdburl = imdb;
-		country = c;
-		languages = l;
-		genres = g;
-		votes = v;
-		year = y;
-		Log.i("Luiz", "Title " + title);
+	
+	Movies(long id, String t, String r, String imdb, String c, String l, String g, String v, String y) {
+		this.setId(id);
+		this.title = t;
+		this.rating = r;
+		this.imdburl = imdb;
+		this.country = c;
+		this.languages = l;
+		this.genres = g;
+		this.votes = v;
+		this.year = y;
 	}
 	
+	public Movies(String t, String r, String imdb, String c, String l, String g, String v, String y) {
+		// TODO Auto-generated constructor stub
+		this(0, t, r, imdb, c, l, g, v, y);
+		
+//		title = t;
+//		rating = r;
+//		imdburl = imdb;
+//		country = c;
+//		languages = l;
+//		genres = g;
+//		votes = v;
+//		year = y;
+	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
@@ -87,23 +99,7 @@ public class Movies {
 		return votes;
 	}
 
-	public void setUsascreens(String usascreens) {
-		this.usascreens = usascreens;
-	}
-
-	public String getUsascreens() {
-		return usascreens;
-	}
-
-	public void setUkscreens(String ukscreens) {
-		this.ukscreens = ukscreens;
-	}
-
-	public String getUkscreens() {
-		return ukscreens;
-	}
-
-	public void setYear(String year) {
+		public void setYear(String year) {
 		this.year = year;
 	}
 
@@ -111,20 +107,12 @@ public class Movies {
 		return year;
 	}
 
-	public void setStv(String stv) {
-		this.stv = stv;
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	public String getStv() {
-		return stv;
-	}
-
-	public void setSeries(String series) {
-		this.series = series;
-	}
-
-	public String getSeries() {
-		return series;
+	public long getId() {
+		return id;
 	}
 
 }

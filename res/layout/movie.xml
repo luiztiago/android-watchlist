@@ -1,4 +1,4 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 	android:id="@+id/linearLayout1"
 	android:layout_width="fill_parent"
