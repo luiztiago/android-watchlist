@@ -78,8 +78,8 @@ public class MoviesDB extends SQLiteOpenHelper {
 		return cv;
 	}
 	
-	public List<Movies> list(){
-		List<Movies> listagem = new ArrayList<Movies>();
+	public List<String> listMovies(){
+		List<String> listagem = new ArrayList<String>();
 		
 		SQLiteDatabase db = getWritableDatabase();
 		Cursor cursor = db.query("movies", null, null, null, null, null, "title");
@@ -102,7 +102,7 @@ public class MoviesDB extends SQLiteOpenHelper {
 				year = cursor.getString(cursor.getColumnIndex("year"));
 				
 				Movies movie = new Movies(id, title, rating, imdburl, country, languages, genres, votes, year);
-				listagem.add(movie);
+				listagem.add(movie.getTitle());
 				
 				cursor.moveToNext();
 			}
@@ -110,5 +110,39 @@ public class MoviesDB extends SQLiteOpenHelper {
 		db.close();
 		
 		return listagem;
+	}
+	
+	public List<Movies> list(){
+		List<Movies> objList = new ArrayList<Movies>();
+		
+		SQLiteDatabase db = getWritableDatabase();
+		Cursor cursor = db.query("movies", null, null, null, null, null, "title");
+		
+		if (cursor.getCount() > 0){
+			cursor.moveToFirst();
+			
+			long id;
+			String title, rating, imdburl, country, languages, genres, votes, year;
+			while (!cursor.isAfterLast()){
+				id = cursor.getLong(0);
+				
+				title = cursor.getString(cursor.getColumnIndex("title"));
+				rating = cursor.getString(cursor.getColumnIndex("rating"));
+				imdburl = cursor.getString(cursor.getColumnIndex("imdburl"));
+				country = cursor.getString(cursor.getColumnIndex("country"));
+				languages = cursor.getString(cursor.getColumnIndex("languages"));
+				genres = cursor.getString(cursor.getColumnIndex("genres"));
+				votes = cursor.getString(cursor.getColumnIndex("votes"));
+				year = cursor.getString(cursor.getColumnIndex("year"));
+				
+				Movies movie = new Movies(id, title, rating, imdburl, country, languages, genres, votes, year);
+				objList.add(movie);
+				
+				cursor.moveToNext();
+			}
+		}
+		db.close();
+		
+		return objList;
 	}
 }

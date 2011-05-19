@@ -14,6 +14,7 @@ import android.widget.ListView;
 public class MoviesToWatchActivity extends ListActivity {
 	
 	final Activity self = this;
+	public List<Movies> movies;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,15 +22,16 @@ public class MoviesToWatchActivity extends ListActivity {
 		
 		MoviesDB db = new MoviesDB(this);
 
-		final List<Movies> movies = db.list();
-
+		//final List<Movies> movies = db.list();
+		movies = db.list();
+		final List<String> listMovies = db.listMovies();
+		
 		if(movies.size() > 0) {
-			ArrayAdapter<Movies> adapter = new ArrayAdapter<Movies>(this,
-					android.R.layout.simple_list_item_1, movies) {
-				@Override
-				public long getItemId(int position) {
-					return movies.get(position).getId();
-				}
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+					android.R.layout.simple_list_item_1, listMovies) {
+//				public long getItemId(int position) {
+//					return movies.get(position).getId();
+//				}
 			};
 			setListAdapter(adapter);
 		}else{
@@ -47,7 +49,8 @@ public class MoviesToWatchActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		
-		Movies movie = (Movies)l.getAdapter().getItem(position);
+		//Movies movie = (Movies)l.getAdapter().getItem(position);
+		Movies movie = movies.get(position); 
 		
 		Intent it = new Intent(self, MovieActivity.class);
 		it.putExtra("movie", movie);
