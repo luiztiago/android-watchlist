@@ -3,8 +3,13 @@ package com.luiztiago.android.imdb;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -81,41 +86,55 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//		try {
-//			
-//			url = new URL("http://api.movieposterdb.com/json?api_key=demo&secret=b3b39cbcb1ee&width=100&title="+movie.getTitle());
+		try {
+			
+			url = new URL("http://www.imdbapi.com/?i=&t="+movie.getTitle());
+			String json = MoviesJSON.getJSONdata(url);
+			System.out.println(url);
+			System.out.println(json);
+			Log.i("L",url.toString());
+			
+			JSONObject obj = new JSONObject( json );
+			imageLocation = obj.getString("Poster");
+			
+//			url = new URL("http://api.movieposterdb.com/json?api_key=demo&secret=demo&width=100&title="+movie.getTitle());
 //			String json = MoviesJSON.getJSONdata(url);
+//			System.out.println(url);
+//			System.out.println(json);
 //			Log.i("L",url.toString());
 //			
 //			JSONObject obj = new JSONObject( json );
 //			JSONArray posters = obj.getJSONArray("posters");
-//			
+//			System.out.println(posters);
 //			
 //			int len = posters.length();
+//			System.out.println(len);
 //			for(int i = 0; i < len; ++i) {
 //			    JSONObject posterObj = posters.getJSONObject(i);
+//			    System.out.println(posterObj);
 //			    imageLocation = posterObj.getString("image_location");
+//			    System.out.println(imageLocation);
 //			    Log.i("L",imageLocation.toString());
 //			}
-//			
-//		} catch (MalformedURLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (JSONException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		if(imageLocation != null) {
-//			bm = getImageBitmap(imageLocation);
-//			
-//			//movieName = (EditText)findViewById(R.id.movieName);
-//			imageMovie = (ImageView)findViewById(R.id.imageMovie);
-//			imageMovie.setImageBitmap(bm);
-//		
-//		}else{
-//			bm = getImageBitmap("http://developer.android.com/images/dialog_buttons.png");
-//		}
+			
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(imageLocation != null) {
+			bm = getImageBitmap(imageLocation);
+			
+			//movieName = (EditText)findViewById(R.id.movieName);
+			//imageMovie = (ImageView)findViewById(R.id.imageMovie);
+			//imageMovie.setImageBitmap(bm);
+		
+		}else{
+			bm = getImageBitmap("http://api.movieposterdb.com/cache/normal/69/800369/800369_100.jpg");
+		}
 		//setImageURI("http://developer.android.com/images/dialog_buttons.png");
 		
 		//final LoaderImageView image = new LoaderImageView(this, "http://developer.android.com/images/dialog_buttons.png");
@@ -123,7 +142,7 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
 		//movieName.setText(movie.getTitle());
 		//movieName.setText("Testeeeeee");
 		
-		bm = getImageBitmap("http://api.movieposterdb.com/cache/normal/69/800369/800369_100.jpg");
+		//bm = getImageBitmap("http://api.movieposterdb.com/cache/normal/69/800369/800369_100.jpg");
 		imageMovie = (ImageView)findViewById(R.id.imageMovie);
 		imageMovie.setImageBitmap(bm);
 		
