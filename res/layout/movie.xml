@@ -1,88 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
 	android:id="@+id/linearLayout1"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_gravity="center"
 	style="@style/background">
-	<!-- <ImageView android:src="@drawable/icon" android:layout_width="100px" 
-		android:layout_height="150px" android:id="@+id/imageMovie"></ImageView> -->
-	<!-- <RatingBar android:layout_height="wrap_content" android:layout_below="@+id/imageMovie" 
-		android:id="@+id/ratingBar1" android:layout_width="fill_parent" android:layout_alignLeft="@+id/imageMovie" 
-		android:layout_alignRight="@+id/imageMovie" android:numStars="5" android:isIndicator="true"></RatingBar> -->
 
-	<TextView
-		android:paddingTop="15px"
-		android:paddingBottom="15px"
-		android:text="Nome do Filme"
+	<ScrollView
 		android:layout_height="wrap_content"
-		android:gravity="center"
-		android:textSize="30px"
-		android:layout_width="fill_parent"
-		android:id="@+id/fieldTitle"
-		android:layout_alignParentLeft="true"></TextView>
-
-	<ImageView
-		android:src="@drawable/icon"
+		android:id="@+id/scrollView1"
 		android:layout_width="wrap_content"
-		android:layout_below="@+id/fieldTitle"
-		android:layout_alignLeft="@+id/fieldTitle"
-		android:layout_alignRight="@+id/fieldTitle"
-		android:layout_height="170px"
-		android:id="@+id/imageMovie"></ImageView>
+		android:layout_alignParentRight="true">
 
-	<TextView
-		style="@style/movieLabel"
-		android:text="Rating"
-		android:id="@+id/labelRating"
-		android:layout_below="@+id/imageMovie"></TextView>
-	<TextView
-		style="@style/movieInfo"
-		android:text="0/10"
-		android:id="@+id/fieldRating"
-		android:layout_toRightOf="@+id/labelRating"
-		android:layout_alignTop="@+id/labelRating"
-		android:layout_alignBottom="@+id/labelRating"></TextView>
+		<RelativeLayout
+			android:id="@+id/relativeLayout1"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent">
+			<!-- <ImageView android:src="@drawable/icon" android:layout_width="100px" 
+				android:layout_height="150px" android:id="@+id/imageMovie"></ImageView> -->
+			<!-- <RatingBar android:layout_height="wrap_content" android:layout_below="@+id/imageMovie" 
+				android:id="@+id/ratingBar1" android:layout_width="fill_parent" android:layout_alignLeft="@+id/imageMovie" 
+				android:layout_alignRight="@+id/imageMovie" android:numStars="5" android:isIndicator="true"></RatingBar> -->
 
-	<TextView
-		style="@style/movieLabel"
-		android:text="Genres"
-		android:id="@+id/labelGenres"
-		android:layout_below="@+id/labelRating"></TextView>
-	<TextView
-		style="@style/movieInfo"
-		android:text="Genres list"
-		android:id="@+id/fieldGenres"
-		android:layout_toRightOf="@+id/labelGenres"
-		android:layout_alignTop="@+id/labelGenres"
-		android:layout_alignBottom="@+id/labelGenres"></TextView>
+			<TextView
+				android:paddingTop="15px"
+				android:paddingBottom="15px"
+				android:text="Nome do Filme"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:textSize="30px"
+				android:layout_width="fill_parent"
+				android:id="@+id/fieldTitle"
+				android:layout_alignParentLeft="true"></TextView>
 
-	<TextView
-		style="@style/movieLabel"
-		android:text="IMDB"
-		android:id="@+id/labelImdb"
-		android:layout_below="@+id/labelGenres"></TextView>
-	<TextView
-		style="@style/movieInfo"
-		android:text="IMDB Link"
-		android:id="@+id/fieldImdb"
-		android:layout_toRightOf="@+id/labelImdb"
-		android:layout_alignTop="@+id/labelImdb"
-		android:layout_alignBottom="@+id/labelImdb"></TextView>
+			<ImageView
+				android:src="@drawable/icon"
+				android:layout_width="wrap_content"
+				android:layout_below="@+id/fieldTitle"
+				android:layout_alignLeft="@+id/fieldTitle"
+				android:layout_alignRight="@+id/fieldTitle"
+				android:layout_height="170px"
+				android:layout_marginBottom="10px"
+				android:id="@+id/imageMovie"></ImageView>
 
-	<TextView
-		style="@style/movieLabel"
-		android:text="Plot"
-		android:id="@+id/labelPlot"
-		android:layout_below="@+id/labelImdb"></TextView>
-	<TextView
-		style="@style/movieInfo"
-		android:text="Movie Plot"
-		android:id="@+id/fieldPlot"
-		android:layout_toRightOf="@+id/labelPlot"
-		android:layout_alignTop="@+id/labelPlot"
-		android:layout_alignBottom="@+id/labelPlot"></TextView>
+			<TextView
+				style="@style/movieLabel"
+				android:text="Rating"
+				android:id="@+id/labelRating"
+				android:layout_below="@+id/imageMovie"></TextView>
+			<TextView
+				style="@style/movieInfo"
+				android:text="0/10"
+				android:id="@+id/fieldRating"
+				android:layout_toRightOf="@+id/labelRating"
+				android:layout_alignTop="@+id/labelRating"
+				android:layout_alignBottom="@+id/labelRating"></TextView>
+
+			<TextView
+				style="@style/movieLabel"
+				android:text="Genres"
+				android:id="@+id/labelGenres"
+				android:layout_below="@+id/labelRating"></TextView>
+			<TextView
+				style="@style/movieInfo"
+				android:text="Genres list"
+				android:id="@+id/fieldGenres"
+				android:layout_toRightOf="@+id/labelGenres"
+				android:layout_alignTop="@+id/labelGenres"
+				android:layout_alignBottom="@+id/labelGenres"></TextView>
+
+			<TextView
+				style="@style/movieLabel"
+				android:text="IMDB"
+				android:id="@+id/labelImdb"
+				android:layout_below="@+id/labelGenres"></TextView>
+			<TextView
+				style="@style/movieInfo"
+				android:text="IMDB Link"
+				android:id="@+id/fieldImdb"
+				android:layout_toRightOf="@+id/labelImdb"
+				android:layout_alignTop="@+id/labelImdb"
+				android:layout_alignBottom="@+id/labelImdb"></TextView>
+
+			<TextView
+				style="@style/movieLabel"
+				android:text="Plot"
+				android:id="@+id/labelPlot"
+				android:layout_below="@+id/labelImdb"></TextView>
+			<TextView
+				style="@style/movieInfo"
+				android:text="Movie Plot"
+				android:id="@+id/fieldPlot"
+				android:layout_toRightOf="@+id/labelPlot"
+				android:layout_alignTop="@+id/labelPlot"
+				android:layout_alignBottom="@+id/labelPlot"></TextView>
 
 
-</RelativeLayout>
+
+		</RelativeLayout>
+
+	</ScrollView>
+
+</LinearLayout>

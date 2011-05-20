@@ -11,19 +11,21 @@
 		android:text="Search"
 		android:layout_width="fill_parent"
 		android:drawableLeft="@drawable/search"
-		android:textSize="26px" android:layout_marginBottom="10px"></Button>
+		android:textSize="18sp"
+		android:layout_marginBottom="10px"></Button>
 	<Button
 		android:id="@+id/moviesToWatchButton"
 		android:layout_height="wrap_content"
 		android:text="Movies to watch"
 		android:layout_width="fill_parent"
 		android:drawableLeft="@drawable/movies"
-		android:textSize="26px" android:layout_marginBottom="10px"></Button>
+		android:textSize="18sp"
+		android:layout_marginBottom="10px"></Button>
 	<Button
 		android:id="@+id/watchedMoviesButton"
 		android:layout_height="wrap_content"
 		android:text="Watched movies"
 		android:layout_width="fill_parent"
 		android:drawableLeft="@drawable/movies"
-		android:textSize="26px"></Button>
+		android:textSize="18sp"></Button>
 </LinearLayout>

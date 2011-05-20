@@ -18,22 +18,23 @@ public final class R {
         public static final int wood=0x7f020004;
     }
     public static final class id {
-        public static final int buttonSearch=0x7f060011;
-        public static final int fieldGenres=0x7f06000a;
-        public static final int fieldImdb=0x7f06000c;
-        public static final int fieldPlot=0x7f06000e;
-        public static final int fieldRating=0x7f060008;
-        public static final int fieldSearch=0x7f060010;
-        public static final int fieldTitle=0x7f060005;
-        public static final int imageMovie=0x7f060006;
-        public static final int labelGenres=0x7f060009;
-        public static final int labelImdb=0x7f06000b;
-        public static final int labelPlot=0x7f06000d;
-        public static final int labelRating=0x7f060007;
+        public static final int buttonSearch=0x7f060012;
+        public static final int fieldGenres=0x7f06000c;
+        public static final int fieldImdb=0x7f06000e;
+        public static final int fieldPlot=0x7f060010;
+        public static final int fieldRating=0x7f06000a;
+        public static final int fieldSearch=0x7f060011;
+        public static final int fieldTitle=0x7f060007;
+        public static final int imageMovie=0x7f060008;
+        public static final int labelGenres=0x7f06000b;
+        public static final int labelImdb=0x7f06000d;
+        public static final int labelPlot=0x7f06000f;
+        public static final int labelRating=0x7f060009;
         public static final int linearLayout1=0x7f060000;
         public static final int listMovies=0x7f060001;
         public static final int moviesToWatchButton=0x7f060003;
-        public static final int relativeLayout1=0x7f06000f;
+        public static final int relativeLayout1=0x7f060006;
+        public static final int scrollView1=0x7f060005;
         public static final int searchButton=0x7f060002;
         public static final int watchedMoviesButton=0x7f060004;
     }
@@ -49,6 +50,7 @@ public final class R {
     }
     public static final class style {
         public static final int background=0x7f050002;
+        public static final int defaultButton=0x7f050004;
         public static final int movieInfo=0x7f050001;
         public static final int movieLabel=0x7f050000;
         public static final int splash=0x7f050003;
