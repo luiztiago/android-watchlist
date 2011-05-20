@@ -17,21 +17,25 @@ public class MoviesDB extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+		System.out.println("oncreate");
 		db.execSQL(
-				"CREATE TABLE movies ("+
+				"CREATE TABLE moviesImdb ("+
 				"_id integer primary key autoincrement,"+
 				"title text not null, " +
 				"rating text not null, " +
 				"imdburl text not null, " +
-				"country text not null, " +
-				"languages text not null, " +
+				"poster text not null, " +
+				"plot text not null, " +
 				"genres text not null, " +
+				"year text not null, " +
 				"votes text not null, " +
-				"year text not null)");
+				"type int(2) null)");
 	}
-
+	
 	@Override
-	public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public void save(Movies movie){
@@ -46,7 +50,7 @@ public class MoviesDB extends SQLiteOpenHelper {
 		ContentValues cv = getContentValues(movie);
 		
 		SQLiteDatabase db = getWritableDatabase();
-		db.update("movies", cv, "_id=?", 
+		db.update("moviesImdb", cv, "_id=?", 
 				new String[]{String.valueOf(movie.getId())});
 		db.close();
 	}
@@ -55,13 +59,13 @@ public class MoviesDB extends SQLiteOpenHelper {
 		ContentValues cv = getContentValues(movie);
 		
 		SQLiteDatabase db = getWritableDatabase();
-		db.insert("movies", null, cv);
+		db.insert("moviesImdb", null, cv);
 		db.close();
 	}
 
 	public void remove(long id){
 		SQLiteDatabase db = getReadableDatabase();
-		db.delete("movies", "_id="+ id, null);
+		db.delete("moviesImdb", "_id="+ id, null);
 		db.close();
 	}
 	
@@ -70,38 +74,42 @@ public class MoviesDB extends SQLiteOpenHelper {
 		cv.put("title", movie.getTitle());
 		cv.put("rating", movie.getRating());
 		cv.put("imdburl", movie.getImdburl());
-		cv.put("country", movie.getCountry());
-		cv.put("languages", movie.getLanguages());
+		cv.put("poster", movie.getPoster());
+		cv.put("plot", movie.getPlot());
 		cv.put("genres", movie.getGenres());
 		cv.put("votes", movie.getVotes());
-		cv.put("year", movie.getYear());
+		cv.put("year", movie.getTitle());
+		cv.put("type", movie.getType());
 		return cv;
 	}
 	
-	public List<String> listMovies(){
+	public List<String> listMovies(long filterType){
+		
 		List<String> listagem = new ArrayList<String>();
 		
 		SQLiteDatabase db = getWritableDatabase();
-		Cursor cursor = db.query("movies", null, null, null, null, null, "title");
+		Cursor cursor = db.query("moviesImdb", null, "type = "+filterType, null, null, null, "title");
 		
 		if (cursor.getCount() > 0){
 			cursor.moveToFirst();
 			
 			long id;
-			String title, rating, imdburl, country, languages, genres, votes, year;
+			String title, rating, imdburl, poster, plot, genres, votes, year;
+			long type;
 			while (!cursor.isAfterLast()){
 				id = cursor.getLong(0);
 				
 				title = cursor.getString(cursor.getColumnIndex("title"));
 				rating = cursor.getString(cursor.getColumnIndex("rating"));
 				imdburl = cursor.getString(cursor.getColumnIndex("imdburl"));
-				country = cursor.getString(cursor.getColumnIndex("country"));
-				languages = cursor.getString(cursor.getColumnIndex("languages"));
+				poster = cursor.getString(cursor.getColumnIndex("poster"));
+				plot = cursor.getString(cursor.getColumnIndex("plot"));
 				genres = cursor.getString(cursor.getColumnIndex("genres"));
 				votes = cursor.getString(cursor.getColumnIndex("votes"));
 				year = cursor.getString(cursor.getColumnIndex("year"));
+				type = cursor.getLong(cursor.getColumnIndex("type"));
 				
-				Movies movie = new Movies(id, title, rating, imdburl, country, languages, genres, votes, year);
+				Movies movie = new Movies(id, title, rating, imdburl, poster, plot, genres, votes, year, type);
 				listagem.add(movie.getTitle());
 				
 				cursor.moveToNext();
@@ -112,30 +120,32 @@ public class MoviesDB extends SQLiteOpenHelper {
 		return listagem;
 	}
 	
-	public List<Movies> list(){
+	public List<Movies> list(long filterType){
 		List<Movies> objList = new ArrayList<Movies>();
 		
 		SQLiteDatabase db = getWritableDatabase();
-		Cursor cursor = db.query("movies", null, null, null, null, null, "title");
+		Cursor cursor = db.query("moviesImdb", null, "type = "+filterType, null, null, null, "title");
 		
 		if (cursor.getCount() > 0){
 			cursor.moveToFirst();
 			
 			long id;
-			String title, rating, imdburl, country, languages, genres, votes, year;
+			String title, rating, imdburl, poster, plot, genres, votes, year;
+			long type;
 			while (!cursor.isAfterLast()){
 				id = cursor.getLong(0);
 				
 				title = cursor.getString(cursor.getColumnIndex("title"));
 				rating = cursor.getString(cursor.getColumnIndex("rating"));
 				imdburl = cursor.getString(cursor.getColumnIndex("imdburl"));
-				country = cursor.getString(cursor.getColumnIndex("country"));
-				languages = cursor.getString(cursor.getColumnIndex("languages"));
+				poster = cursor.getString(cursor.getColumnIndex("poster"));
+				plot = cursor.getString(cursor.getColumnIndex("plot"));
 				genres = cursor.getString(cursor.getColumnIndex("genres"));
 				votes = cursor.getString(cursor.getColumnIndex("votes"));
 				year = cursor.getString(cursor.getColumnIndex("year"));
+				type = cursor.getLong(cursor.getColumnIndex("type"));
 				
-				Movies movie = new Movies(id, title, rating, imdburl, country, languages, genres, votes, year);
+				Movies movie = new Movies(id, title, rating, imdburl, poster, plot, genres, votes, year, type);
 				objList.add(movie);
 				
 				cursor.moveToNext();
@@ -145,4 +155,5 @@ public class MoviesDB extends SQLiteOpenHelper {
 		
 		return objList;
 	}
+
 }

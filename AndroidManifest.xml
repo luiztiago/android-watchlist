@@ -30,6 +30,7 @@
 			android:name="MovieActivity"></activity>
 		<activity
 			android:name="MoviesToWatchActivity"></activity>
+		<activity android:name="WatchedMoviesActivity"></activity>
 
 	</application>
 </manifest>

@@ -136,9 +136,7 @@ public class SearchActivity extends DefaultActivity {
 			//
 			// String json = new String(baos.toByteArray());
 
-			URL url = new URL(
-					"http://www.deanclatworthy.com/imdb/?year=&submit=Submit&type=json&q="
-							+ search);
+			URL url = new URL("http://www.deanclatworthy.com/imdb/?year=&submit=Submit&type=json&q="+ search);
 			String json = MoviesJSON.getJSONdata(url);
 			Log.i("Luiz", json.toString());
 
@@ -146,14 +144,20 @@ public class SearchActivity extends DefaultActivity {
 			String title = obj.getString("title");
 			String rating = obj.getString("rating");
 			String imdburl = obj.getString("imdburl");
-			String country = obj.getString("country");
-			String languages = obj.getString("languages");
 			String genres = obj.getString("genres");
 			String votes = obj.getString("votes");
 			String year = obj.getString("year");
+			long type = 0;
+			
+			URL url2 = new URL("http://www.imdbapi.com/?i=&t="+ search);
+			String json2 = MoviesJSON.getJSONdata(url2);
+			Log.i("Luiz", json2.toString());
+			
+			JSONObject obj2 = new JSONObject(json2);
+			String plot = obj2.getString("Plot");
+			String poster = obj2.getString("Poster");
 
-			movie = new Movies(title, rating, imdburl, country, languages,
-					genres, votes, year);
+			movie = new Movies(title, rating, imdburl, poster, plot, genres, votes, year, type);
 			Log.i("Luiz", title);
 			Log.i("Luiz", "Rating: " + movie.getRating());
 

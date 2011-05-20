@@ -20,11 +20,24 @@ public class MoviesToWatchActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		//setContentView(R.layout.listmovies);
 		
+		getMovies();
+
+	}
+	
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		super.onRestart();
+		
+		getMovies();
+	}
+	
+	protected void getMovies(){
 		MoviesDB db = new MoviesDB(this);
 
 		//final List<Movies> movies = db.list();
-		movies = db.list();
-		final List<String> listMovies = db.listMovies();
+		movies = db.list(1);
+		final List<String> listMovies = db.listMovies(1);
 		
 		if(movies.size() > 0) {
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -43,7 +56,6 @@ public class MoviesToWatchActivity extends ListActivity {
 		}
 
 		registerForContextMenu(getListView());
-
 	}
 	
 	protected void onListItemClick(ListView l, View v, int position, long id) {

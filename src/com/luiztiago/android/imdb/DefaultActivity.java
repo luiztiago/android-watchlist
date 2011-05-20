@@ -32,5 +32,14 @@ public class DefaultActivity extends Activity {
 			}
 		});
         
+        findViewById(R.id.watchedMoviesButton).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent it = new Intent(self, WatchedMoviesActivity.class);
+				startActivity(it);
+			}
+		});
+        
     }
 }

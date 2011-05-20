@@ -10,27 +10,29 @@ public class Movies implements Serializable {
 	private String title;
 	private String rating;
 	private String imdburl;
-	private String country;
-	private String languages;
+	private String poster;
+	private String plot;
 	private String genres;
 	private String votes;
 	private String year;
+	private long type;
 	
-	Movies(long id, String t, String r, String imdb, String c, String l, String g, String v, String y) {
+	Movies(long id, String t, String r, String imdb, String p, String pl, String g, String v, String y, long ty) {
 		this.setId(id);
 		this.title = t;
 		this.rating = r;
 		this.imdburl = imdb;
-		this.country = c;
-		this.languages = l;
+		this.poster = p;
+		this.plot = pl;
 		this.genres = g;
 		this.votes = v;
 		this.year = y;
+		this.type = ty;
 	}
 	
-	public Movies(String t, String r, String imdb, String c, String l, String g, String v, String y) {
+	public Movies(String t, String r, String imdb, String p, String pl, String g, String v, String y, long ty) {
 		// TODO Auto-generated constructor stub
-		this(0, t, r, imdb, c, l, g, v, y);
+		this(0, t, r, imdb, p, pl, g, v, y, ty);
 		
 //		title = t;
 //		rating = r;
@@ -66,21 +68,21 @@ public class Movies implements Serializable {
 	public String getImdburl() {
 		return imdburl;
 	}
-
-	public void setCountry(String country) {
-		this.country = country;
+	
+	public String getPoster() {
+		return poster;
 	}
 
-	public String getCountry() {
-		return country;
+	public void setPoster(String poster) {
+		this.poster = poster;
 	}
 
-	public void setLanguages(String languages) {
-		this.languages = languages;
+	public String getPlot() {
+		return plot;
 	}
 
-	public String getLanguages() {
-		return languages;
+	public void setPlot(String plot) {
+		this.plot = plot;
 	}
 
 	public void setGenres(String genres) {
@@ -113,6 +115,14 @@ public class Movies implements Serializable {
 
 	public long getId() {
 		return id;
+	}
+	
+	public long getType() {
+		return type;
+	}
+
+	public void setType(long type) {
+		this.type = type;
 	}
 
 }

@@ -25,18 +25,12 @@ import android.widget.Toast;
 
 public class MovieActivity extends SearchActivity implements OnClickListener {
 	
-	private ImageView imageMovie;
 	public Movies movie;
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.movie);
-		
-		String imageLocation = null;
-		Bitmap bm;
-		URL url;
-		//Movies movie = SearchActivity.movie;
 		
 		movie = null;
 		if (getIntent().getSerializableExtra("movie") != null){
@@ -53,98 +47,12 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
 			
 			TextView fieldImdb = (TextView)findViewById(R.id.fieldImdb);
 			fieldImdb.setText(movie.getImdburl());
+			
+			ImageView imageMovie = (ImageView)findViewById(R.id.imageMovie);
+			Bitmap bm = getImageBitmap(movie.getPoster());
+			imageMovie.setImageBitmap(bm);
 		}
 		
-		
-//		Log.i("Luiz", movie.getTitle());
-//		
-//		TextView fieldTitle = (TextView)findViewById(R.id.fieldTitle);
-//		fieldTitle.setText(movie.getTitle());
-//		
-//		TextView fieldRating = (TextView)findViewById(R.id.fieldRating);
-//		fieldRating.setText(movie.getRating());
-//		
-//		TextView fieldGenres = (TextView)findViewById(R.id.fieldGenres);
-//		fieldGenres.setText(movie.getGenres());
-//		
-//		TextView fieldImdb = (TextView)findViewById(R.id.fieldImdb);
-//		fieldImdb.setText(movie.getImdburl());
-		
-		//RatingBar ratingBar = (RatingBar)findViewById(R.id.ratingBar1);
-		//ratingBar.setRating(movie.getRating());
-		//System.out.println(ratingBar.getRating());
-		//System.out.println(ratingBar.getNumStars());
-		//ratingBar.setNumStars(5);
-		
-		//Uri imageURI = new Uri("http://developer.android.com/images/dialog_buttons.png");
-		
-//		try {
-//			url = new URL("http://api.movieposterdb.com/json?api_key=demo&secret=b3b39cbcb1ee&width=100&title="+movie.getTitle());
-//			String json = MoviesJSON.getJSONdata(url);
-//			Log.i("L",url.toString());
-//		} catch (MalformedURLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		try {
-			
-			url = new URL("http://www.imdbapi.com/?i=&t="+movie.getTitle());
-			String json = MoviesJSON.getJSONdata(url);
-			System.out.println(url);
-			System.out.println(json);
-			Log.i("L",url.toString());
-			
-			JSONObject obj = new JSONObject( json );
-			imageLocation = obj.getString("Poster");
-			
-//			url = new URL("http://api.movieposterdb.com/json?api_key=demo&secret=demo&width=100&title="+movie.getTitle());
-//			String json = MoviesJSON.getJSONdata(url);
-//			System.out.println(url);
-//			System.out.println(json);
-//			Log.i("L",url.toString());
-//			
-//			JSONObject obj = new JSONObject( json );
-//			JSONArray posters = obj.getJSONArray("posters");
-//			System.out.println(posters);
-//			
-//			int len = posters.length();
-//			System.out.println(len);
-//			for(int i = 0; i < len; ++i) {
-//			    JSONObject posterObj = posters.getJSONObject(i);
-//			    System.out.println(posterObj);
-//			    imageLocation = posterObj.getString("image_location");
-//			    System.out.println(imageLocation);
-//			    Log.i("L",imageLocation.toString());
-//			}
-			
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		if(imageLocation != null) {
-			bm = getImageBitmap(imageLocation);
-			
-			//movieName = (EditText)findViewById(R.id.movieName);
-			//imageMovie = (ImageView)findViewById(R.id.imageMovie);
-			//imageMovie.setImageBitmap(bm);
-		
-		}else{
-			bm = getImageBitmap("http://api.movieposterdb.com/cache/normal/69/800369/800369_100.jpg");
-		}
-		//setImageURI("http://developer.android.com/images/dialog_buttons.png");
-		
-		//final LoaderImageView image = new LoaderImageView(this, "http://developer.android.com/images/dialog_buttons.png");
-		
-		//movieName.setText(movie.getTitle());
-		//movieName.setText("Testeeeeee");
-		
-		//bm = getImageBitmap("http://api.movieposterdb.com/cache/normal/69/800369/800369_100.jpg");
-		imageMovie = (ImageView)findViewById(R.id.imageMovie);
-		imageMovie.setImageBitmap(bm);
 		
 	}
 	
@@ -178,18 +86,20 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
     		
     		MoviesDB db = new MoviesDB(this);
     		System.out.println(movie);
+    		movie.setType(1);
 			db.save(movie);
 			Toast.makeText(self, "Adicionado com sucesso",
 					Toast.LENGTH_SHORT).show();
-    		
-//    		AlertDialog.Builder builder = new AlertDialog.Builder(this)
-//    			.setTitle("Titulo")
-//    			.setMessage("Mensagem")
-//    			.setPositiveButton("OK", (android.content.DialogInterface.OnClickListener) this)
-//    			.setNegativeButton("Cancelar", (android.content.DialogInterface.OnClickListener) this);
-//    		builder.create().show();
+
     	}else if (item.getItemId() == 2){
-    		// Trator FAKE
+    	
+    		MoviesDB db = new MoviesDB(this);
+    		System.out.println(movie);
+    		movie.setType(2);
+			db.save(movie);
+			Toast.makeText(self, "Adicionado com sucesso",
+					Toast.LENGTH_SHORT).show();
+			
     	}
     	
     	return super.onMenuItemSelected(featureId, item);
