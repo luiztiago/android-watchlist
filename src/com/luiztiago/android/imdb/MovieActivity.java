@@ -3,13 +3,8 @@ package com.luiztiago.android.imdb;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -17,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -37,7 +33,11 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
 			movie = (Movies)getIntent().getSerializableExtra("movie");
 			
 			TextView fieldTitle = (TextView)findViewById(R.id.fieldTitle);
-			fieldTitle.setText(movie.getTitle());
+			if(movie.getYear() != null && movie.getYear() != "null"){
+				fieldTitle.setText(movie.getTitle() + " (" + movie.getYear() + ")");
+			}else{
+				fieldTitle.setText(movie.getTitle());
+			}
 			
 			TextView fieldRating = (TextView)findViewById(R.id.fieldRating);
 			fieldRating.setText(movie.getRating());
@@ -47,6 +47,9 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
 			
 			TextView fieldImdb = (TextView)findViewById(R.id.fieldImdb);
 			fieldImdb.setText(movie.getImdburl());
+			
+			TextView fieldPlot = (TextView)findViewById(R.id.fieldPlot);
+			fieldPlot.setText(movie.getPlot());
 			
 			ImageView imageMovie = (ImageView)findViewById(R.id.imageMovie);
 			Bitmap bm = getImageBitmap(movie.getPoster());
@@ -87,10 +90,10 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
     		MoviesDB db = new MoviesDB(this);
     		System.out.println(movie);
     		movie.setType(1);
-			db.save(movie);
-			Toast.makeText(self, "Adicionado com sucesso",
+    		db.save(movie);
+    		Toast.makeText(self, "Adicionado com sucesso",
 					Toast.LENGTH_SHORT).show();
-
+    		
     	}else if (item.getItemId() == 2){
     	
     		MoviesDB db = new MoviesDB(this);

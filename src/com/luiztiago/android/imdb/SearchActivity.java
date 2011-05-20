@@ -141,29 +141,35 @@ public class SearchActivity extends DefaultActivity {
 			Log.i("Luiz", json.toString());
 
 			JSONObject obj = new JSONObject(json);
-			String title = obj.getString("title");
-			String rating = obj.getString("rating");
-			String imdburl = obj.getString("imdburl");
-			String genres = obj.getString("genres");
-			String votes = obj.getString("votes");
-			String year = obj.getString("year");
-			long type = 0;
 			
-			URL url2 = new URL("http://www.imdbapi.com/?i=&t="+ search);
-			String json2 = MoviesJSON.getJSONdata(url2);
-			Log.i("Luiz", json2.toString());
-			
-			JSONObject obj2 = new JSONObject(json2);
-			String plot = obj2.getString("Plot");
-			String poster = obj2.getString("Poster");
-
-			movie = new Movies(title, rating, imdburl, poster, plot, genres, votes, year, type);
-			Log.i("Luiz", title);
-			Log.i("Luiz", "Rating: " + movie.getRating());
-
-			Intent it = new Intent(self, MovieActivity.class);
-			it.putExtra("movie", movie);
-			startActivity(it);
+			if(!obj.has("error")){
+				String title = obj.getString("title");
+				String rating = obj.getString("rating");
+				String imdburl = obj.getString("imdburl");
+				String genres = obj.getString("genres");
+				String votes = obj.getString("votes");
+				String year = obj.getString("year");
+				long type = 0;
+				
+				URL url2 = new URL("http://www.imdbapi.com/?i=&t="+ search);
+				String json2 = MoviesJSON.getJSONdata(url2);
+				Log.i("Luiz", json2.toString());
+				
+				JSONObject obj2 = new JSONObject(json2);
+				String plot = obj2.getString("Plot");
+				String poster = obj2.getString("Poster");
+	
+				movie = new Movies(title, rating, imdburl, poster, plot, genres, votes, year, type);
+				Log.i("Luiz", title);
+				Log.i("Luiz", "Rating: " + movie.getRating());
+	
+				Intent it = new Intent(self, MovieActivity.class);
+				it.putExtra("movie", movie);
+				startActivity(it);
+			}else{
+				Toast.makeText(self, obj.getString("error"),
+						Toast.LENGTH_LONG).show();
+			}
 
 		} catch (Exception ex) {
 			Toast.makeText(self, "WebService without response.",

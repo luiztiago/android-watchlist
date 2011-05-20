@@ -3,12 +3,13 @@
 	android:id="@+id/relativeLayout1"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	xmlns:android="http://schemas.android.com/apk/res/android">
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/splash">
 	<EditText
 		android:id="@+id/fieldSearch"
 		android:layout_height="wrap_content"
 		android:layout_width="fill_parent"
-		android:hint="Pesquisar..."></EditText>
+		android:hint="Movie name..."></EditText>
 	<Button
 		android:id="@+id/buttonSearch"
 		android:layout_width="wrap_content"
@@ -16,7 +17,9 @@
 		android:layout_below="@+id/fieldSearch"
 		android:layout_alignLeft="@+id/fieldSearch"
 		android:layout_alignRight="@+id/fieldSearch"
-		android:text="Pesquisar"></Button>
+		android:text="Search"
+		android:drawableLeft="@drawable/search"
+		android:textSize="26px"></Button>
 	<!-- <ListView android:id="@+id/listSearch" android:layout_width="match_parent" 
 		android:layout_height="wrap_content" android:layout_below="@+id/buttonSearch" 
 		android:layout_alignLeft="@+id/buttonSearch" android:layout_alignRight="@+id/buttonSearch"></ListView> -->

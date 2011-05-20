@@ -18,5 +18,16 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:autoLink">all</item>
+        <item name="android:textColorLink">#FFFF00</item>
+    </style>
+    <style name="background">
+        <item name="android:background">@drawable/wood</item>
+    </style>
+    <style name="splash">
+        <item name="android:background">@drawable/splash</item>
+        <item name="android:paddingTop">15px</item>
+        <item name="android:paddingBottom">10px</item>
+        <item name="android:paddingLeft">10px</item>
+        <item name="android:paddingRight">10px</item> 
     </style>
 </resources>

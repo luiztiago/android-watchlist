@@ -3,11 +3,13 @@ package com.luiztiago.android.imdb;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 public class MoviesDB extends SQLiteOpenHelper {
 
@@ -17,7 +19,6 @@ public class MoviesDB extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		System.out.println("oncreate");
 		db.execSQL(
 				"CREATE TABLE moviesImdb ("+
 				"_id integer primary key autoincrement,"+
@@ -39,8 +40,16 @@ public class MoviesDB extends SQLiteOpenHelper {
 	}
 
 	public void save(Movies movie){
+		final Activity self = new Activity();
 		if (movie.getId() == 0){
-			insert(movie);
+			
+			if(!hasMovie(movie.getTitle())){
+				insert(movie);
+			}else{
+				Toast.makeText(self, "J‡ existe este filme cadastrado",
+						Toast.LENGTH_SHORT).show();
+			}
+			
 		} else {
 			refresh(movie);
 		}
@@ -78,7 +87,7 @@ public class MoviesDB extends SQLiteOpenHelper {
 		cv.put("plot", movie.getPlot());
 		cv.put("genres", movie.getGenres());
 		cv.put("votes", movie.getVotes());
-		cv.put("year", movie.getTitle());
+		cv.put("year", movie.getYear());
 		cv.put("type", movie.getType());
 		return cv;
 	}
@@ -154,6 +163,21 @@ public class MoviesDB extends SQLiteOpenHelper {
 		db.close();
 		
 		return objList;
+	}
+	
+	public boolean hasMovie(String title){
+		
+		SQLiteDatabase db = getWritableDatabase();
+		Cursor cursor = db.query("moviesImdb", null, "title = \""+title+"\"", null, null, null, "title");
+		boolean hasMovie;
+		
+		if (cursor.getCount() > 0){
+			hasMovie = true;
+		}else{
+			hasMovie = false;
+		}
+		
+		return hasMovie;
 	}
 
 }

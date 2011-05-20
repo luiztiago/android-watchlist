@@ -57,7 +57,7 @@ public class Movies implements Serializable {
 	}
 
 	public String getRating() {
-		return rating + "/10";
+		return rating;
 //		return Float.parseFloat(rating);
 	}
 

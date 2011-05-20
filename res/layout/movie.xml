@@ -4,7 +4,8 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_gravity="center">
+	android:layout_gravity="center"
+	style="@style/background">
 	<!-- <ImageView android:src="@drawable/icon" android:layout_width="100px" 
 		android:layout_height="150px" android:id="@+id/imageMovie"></ImageView> -->
 	<!-- <RatingBar android:layout_height="wrap_content" android:layout_below="@+id/imageMovie" 
@@ -69,6 +70,19 @@
 		android:layout_toRightOf="@+id/labelImdb"
 		android:layout_alignTop="@+id/labelImdb"
 		android:layout_alignBottom="@+id/labelImdb"></TextView>
+
+	<TextView
+		style="@style/movieLabel"
+		android:text="Plot"
+		android:id="@+id/labelPlot"
+		android:layout_below="@+id/labelImdb"></TextView>
+	<TextView
+		style="@style/movieInfo"
+		android:text="Movie Plot"
+		android:id="@+id/fieldPlot"
+		android:layout_toRightOf="@+id/labelPlot"
+		android:layout_alignTop="@+id/labelPlot"
+		android:layout_alignBottom="@+id/labelPlot"></TextView>
 
 
 </RelativeLayout>
