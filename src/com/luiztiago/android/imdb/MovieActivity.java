@@ -21,6 +21,7 @@ import android.widget.Toast;
 public class MovieActivity extends SearchActivity implements OnClickListener {
 	
 	public Movies movie;
+	private Menu menu;
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		
@@ -86,8 +87,15 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// MENU PARA MARCAR COMO ASSISTIDO E A ASSISTIR
-		menu.add(0, 1, 0, "Mark to watch");
-    	menu.add(1, 2, 0, "Mark as watched");
+		if(movie.getType() != 1){
+			menu.add(0, 1, 0, "Mark to watch");
+		}
+		if(movie.getType() != 2){
+			menu.add(1, 2, 0, "Mark as watched");
+		}
+		if(movie.getType() == 1 || movie.getType() == 2){
+			menu.add(1, 3, 0, "Remove");
+		}
     	return super.onCreateOptionsMenu(menu);
     }
     
@@ -111,6 +119,14 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
     		movie.setType(2);
 			db.save(movie);
 			Toast.makeText(self, "Marked successfuly",
+					Toast.LENGTH_SHORT).show();
+			
+    	}else if (item.getItemId() == 3){
+    	
+    		MoviesDB db = new MoviesDB(this);
+    		System.out.println(movie);
+    		db.remove(movie.getId());
+			Toast.makeText(self, "Deleted movie",
 					Toast.LENGTH_SHORT).show();
 			
     	}

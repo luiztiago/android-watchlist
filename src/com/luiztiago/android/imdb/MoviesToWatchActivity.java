@@ -48,7 +48,7 @@ public class MoviesToWatchActivity extends ListActivity {
 			ArrayList<String> noResults = new ArrayList<String>();
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 					android.R.layout.simple_list_item_1, noResults);
-			noResults.add("Nenhum resultado encontrado");
+			noResults.add("No results");
 			setListAdapter(adapter);
 		}
 
