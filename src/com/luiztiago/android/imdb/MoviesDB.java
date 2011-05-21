@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 public class MoviesDB extends SQLiteOpenHelper {
 
+	// MODEL DE MOVIES
 	public MoviesDB(Context context) {
 		super(context, "moviesDB", null, 1);
 	}

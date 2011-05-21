@@ -40,9 +40,6 @@ public class SearchActivity extends DefaultActivity {
 				// If the event is a key-down event on the "enter" button
 				if ((event.getAction() == KeyEvent.ACTION_DOWN)
 						&& (keyCode == KeyEvent.KEYCODE_ENTER)) {
-					// Perform action on key press
-					//Toast.makeText(self, fieldSearch.getText(),
-					//		Toast.LENGTH_SHORT).show();
 					
 					searchMovie();
 					
@@ -93,48 +90,9 @@ public class SearchActivity extends DefaultActivity {
 		return data;
 	}
 
-	/*
-	 * private String getJSONdata(URL url) { // TODO Auto-generated method stub
-	 * String json = new String(""); try { HttpURLConnection conn =
-	 * (HttpURLConnection)url.openConnection();
-	 * 
-	 * conn.setDoInput(true); conn.setDoOutput(true);
-	 * 
-	 * InputStream is = conn.getInputStream();
-	 * 
-	 * byte[] buffer = new byte[1024]; ByteArrayOutputStream baos = new
-	 * ByteArrayOutputStream(); int readed; while ( ( readed = is.read(buffer))
-	 * > 0 ) { baos.write(buffer, 0, readed); }
-	 * 
-	 * json = new String(baos.toByteArray());
-	 * 
-	 * // for (Movie mov : objs.getMovies()) { // Log.i("MOVIES", mov.getTitle()
-	 * + " - " + mov.getRating()); // }
-	 * 
-	 * } catch (Exception ex) { ex.printStackTrace(); }
-	 * 
-	 * return json; }
-	 */
 
 	public void runJSONParser(String search) {
 		try {
-			// URL url = new
-			// URL("http://www.deanclatworthy.com/imdb/?year=&submit=Submit&type=json&q="+search);
-			// HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-			//
-			// conn.setDoInput(true);
-			// conn.setDoOutput(true);
-			//
-			// InputStream is = conn.getInputStream();
-			//
-			// byte[] buffer = new byte[1024];
-			// ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			// int readed;
-			// while ( ( readed = is.read(buffer)) > 0 ) {
-			// baos.write(buffer, 0, readed);
-			// }
-			//
-			// String json = new String(baos.toByteArray());
 
 			URL url = new URL("http://www.deanclatworthy.com/imdb/?year=&submit=Submit&type=json&q="+ search);
 			String json = MoviesJSON.getJSONdata(url);

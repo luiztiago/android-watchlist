@@ -2,10 +2,14 @@ package com.luiztiago.android.imdb;
 
 import java.io.Serializable;
 
-import android.util.Log;
-
 public class Movies implements Serializable {
 
+	// CLASSE MOVIES
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private String title;
 	private String rating;

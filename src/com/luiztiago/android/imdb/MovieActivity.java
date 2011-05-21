@@ -12,7 +12,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -29,9 +28,12 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
 		setContentView(R.layout.movie);
 		
 		movie = null;
+		
+		// RECEBE O OBJETO MOVIE
 		if (getIntent().getSerializableExtra("movie") != null){
 			movie = (Movies)getIntent().getSerializableExtra("movie");
 			
+			// SETA O TITULO DO FILME
 			TextView fieldTitle = (TextView)findViewById(R.id.fieldTitle);
 			if(movie.getYear() != null && movie.getYear() != "null"){
 				fieldTitle.setText(movie.getTitle() + " (" + movie.getYear() + ")");
@@ -39,18 +41,23 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
 				fieldTitle.setText(movie.getTitle());
 			}
 			
+			// SETA O RATING DO FILME
 			TextView fieldRating = (TextView)findViewById(R.id.fieldRating);
 			fieldRating.setText(movie.getRating());
 			
+			// SETA O GENRE DO FILME
 			TextView fieldGenres = (TextView)findViewById(R.id.fieldGenres);
 			fieldGenres.setText(movie.getGenres());
 			
+			// SETA O IMDB LINK DO FILME
 			TextView fieldImdb = (TextView)findViewById(R.id.fieldImdb);
 			fieldImdb.setText(movie.getImdburl());
 			
+			// SETA O PLOT DO FILME
 			TextView fieldPlot = (TextView)findViewById(R.id.fieldPlot);
 			fieldPlot.setText(movie.getPlot());
 			
+			// SETA A IMAGEM DO FILME
 			ImageView imageMovie = (ImageView)findViewById(R.id.imageMovie);
 			Bitmap bm = getImageBitmap(movie.getPoster());
 			imageMovie.setImageBitmap(bm);
@@ -60,7 +67,8 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
 	}
 	
 	private Bitmap getImageBitmap(String url) { 
-        Bitmap bm = null; 
+		// RETORNA O IMAGEBITMAP ATRAVES DA URL
+		Bitmap bm = null; 
         try { 
             URL aURL = new URL(url); 
             URLConnection conn = aURL.openConnection(); 
@@ -77,7 +85,8 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
     }
 
 	public boolean onCreateOptionsMenu(Menu menu) {
-    	menu.add(0, 1, 0, "Mark to watch");
+		// MENU PARA MARCAR COMO ASSISTIDO E A ASSISTIR
+		menu.add(0, 1, 0, "Mark to watch");
     	menu.add(1, 2, 0, "Mark as watched");
     	return super.onCreateOptionsMenu(menu);
     }
@@ -85,13 +94,14 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
     	
+    	// CLIQUE DOS BOTOES PARA MARCACAO
     	if (item.getItemId() == 1) {
     		
     		MoviesDB db = new MoviesDB(this);
     		System.out.println(movie);
     		movie.setType(1);
     		db.save(movie);
-    		Toast.makeText(self, "Adicionado com sucesso",
+    		Toast.makeText(self, "Marked successfuly",
 					Toast.LENGTH_SHORT).show();
     		
     	}else if (item.getItemId() == 2){
@@ -100,7 +110,7 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
     		System.out.println(movie);
     		movie.setType(2);
 			db.save(movie);
-			Toast.makeText(self, "Adicionado com sucesso",
+			Toast.makeText(self, "Marked successfuly",
 					Toast.LENGTH_SHORT).show();
 			
     	}
@@ -119,16 +129,5 @@ public class MovieActivity extends SearchActivity implements OnClickListener {
 			Toast.makeText(this, "Bot‹o 2", Toast.LENGTH_SHORT).show();
 		}
 	}
-
-//	private void onClick(DialogInterface dialog, int which) {
-//		if (which == DialogInterface.BUTTON_POSITIVE) {
-//			Toast.makeText(this, "Bot‹o 1", Toast.LENGTH_SHORT).show();
-//		}else if(which == DialogInterface.BUTTON_NEUTRAL) {
-//			Toast.makeText(this, "Bot‹o 3", Toast.LENGTH_SHORT).show();
-//		}else{
-//			Toast.makeText(this, "Bot‹o 2", Toast.LENGTH_SHORT).show();
-//		}
-//
-//	}
 	
 }

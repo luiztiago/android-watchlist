@@ -6,6 +6,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MoviesJSON {
+	
+	// CLASSE PARA TRATAMENTO DO JSON
 	public static String getJSONdata(URL url) {
 		// TODO Auto-generated method stub
 		String json = new String("");

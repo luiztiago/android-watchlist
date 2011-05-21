@@ -14,6 +14,7 @@ public class DefaultActivity extends Activity {
         setContentView(R.layout.main);
         
         final Activity self = this;
+        // SEARCH BUTTON
         findViewById(R.id.searchButton).setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -23,6 +24,7 @@ public class DefaultActivity extends Activity {
 			}
 		});
         
+     // MOVIES TO WATCH BUTTON
         findViewById(R.id.moviesToWatchButton).setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -32,6 +34,7 @@ public class DefaultActivity extends Activity {
 			}
 		});
         
+        // WATCHED MOVIES BUTTON
         findViewById(R.id.watchedMoviesButton).setOnClickListener(new OnClickListener() {
 			
 			@Override

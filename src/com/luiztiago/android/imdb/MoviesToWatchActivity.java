@@ -42,9 +42,6 @@ public class MoviesToWatchActivity extends ListActivity {
 		if(movies.size() > 0) {
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 					android.R.layout.simple_list_item_1, listMovies) {
-//				public long getItemId(int position) {
-//					return movies.get(position).getId();
-//				}
 			};
 			setListAdapter(adapter);
 		}else{
@@ -61,7 +58,6 @@ public class MoviesToWatchActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		
-		//Movies movie = (Movies)l.getAdapter().getItem(position);
 		Movies movie = movies.get(position); 
 		
 		Intent it = new Intent(self, MovieActivity.class);

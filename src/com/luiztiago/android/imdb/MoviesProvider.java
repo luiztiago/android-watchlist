@@ -24,7 +24,7 @@ public class MoviesProvider extends ContentProvider {
 	public int delete(Uri uri, String whereClause, String[] whereArgs) {
 		MoviesDB db = new MoviesDB(getContext());
 		SQLiteDatabase sqlDB = db.getWritableDatabase(); 
-		int ret = sqlDB.delete("colaborador", whereClause, whereArgs);
+		int ret = sqlDB.delete("movies", whereClause, whereArgs);
 		sqlDB.close();
 		return ret;
 	}
